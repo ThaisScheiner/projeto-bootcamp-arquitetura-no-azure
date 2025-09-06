@@ -1,1 +1,21 @@
-# projeto-bootcamp-arquitetura-no-azure
+# Fundamentos da Arquitetura do Azure: Do Global ao Lógico
+
+## Projeto Bootcamp Arquitetura no Azure
+
+### Estrutura Global: Regiões e Datacenters
+
+A **estrutura global do Azure** é projetada para oferecer escala, resiliência e alcance massivos, sendo construída sobre uma rede de datacenters interconectados ao redor do mundo. A unidade fundamental dessa estrutura é a **região do Azure**, que é uma área geográfica contendo um ou mais datacenters. A escolha de uma região é uma das primeiras e mais importantes decisões ao implantar um serviço, pois ela impacta diretamente a latência para os usuários finais e determina a soberania dos dados, ou seja, onde eles residem fisicamente para cumprir com requisitos legais e de conformidade. Para garantir a continuidade dos negócios em caso de um desastre em larga escala, o Azure implementa a **replicação das regiões** através do conceito de "**regiões emparelhadas**". Cada região do Azure é pareada com outra na mesma geografia (mas a centenas de quilômetros de distância), e certos serviços, como o armazenamento com redundância geográfica (GRS), replicam os dados automaticamente para a região pareada, garantindo que haja uma cópia segura em caso de uma falha regional completa.
+
+Indo mais a fundo, o **funcionamento de um datacenter no Azure** é uma maravilha da engenharia, projetado para segurança e disponibilidade máximas. Cada datacenter é uma instalação física segura com energia, refrigeração e redes independentes. Dentro de uma região, esses datacenters são organizados em **Zonas de Disponibilidade**, que são locais fisicamente separados com infraestrutura independente, permitindo que aplicações de alta disponibilidade continuem funcionando mesmo se um datacenter inteiro falhar.
+
+### Hierarquia Lógica: Assinaturas e Grupos de Recursos
+
+Para organizar e gerenciar os recursos implantados nessa vasta infraestrutura física, o Azure utiliza uma hierarquia lógica fundamental. No topo, temos a **assinatura (subscription)**, que funciona como uma unidade de faturamento e um limite de gerenciamento. Todos os recursos que você cria no Azure devem pertencer a uma assinatura. Dentro de uma assinatura, a organização é feita através de **grupos de recursos (resource groups)**. Um grupo de recursos é um contêiner lógico onde recursos do Azure, como máquinas virtuais, bancos de dados e redes, são implantados e gerenciados. A **criação de um grupo de recursos** é um passo obrigatório antes de provisionar qualquer serviço, e seu principal propósito é agrupar recursos que compartilham um ciclo de vida comum. Por exemplo, todos os componentes de uma aplicação (o servidor web, o banco de dados, a rede) podem ser colocados no mesmo grupo. Isso simplifica o gerenciamento, pois ao excluir o grupo de recursos, todos os recursos contidos nele são excluídos juntos.
+
+### Recursos Essenciais e Controle de Acesso
+
+Um dos recursos mais essenciais que se cria dentro de um grupo de recursos é a **rede virtual (VNet)**. Ela atua como a sua própria rede privada e isolada na nuvem, permitindo que os recursos do Azure se comuniquem de forma segura entre si, com a internet e com suas redes locais. Para controlar quem pode fazer o quê dentro dessa estrutura, o Azure utiliza o **IAM (Identity and Access Management)**, implementado através do **Controle de Acesso Baseado em Função (RBAC)**. Com o IAM, você concede permissões atribuindo funções (como Leitor, Colaborador ou Proprietário) a usuários, grupos ou serviços em um escopo específico, que pode ser a assinatura inteira, um grupo de recursos ou até mesmo um recurso individual.
+
+### Monitoramento e Automação
+
+Para manter a visibilidade e o controle sobre esse ambiente, o Azure gera um **log** detalhado de todas as operações através do **Azure Monitor** e do **Log de Atividades**, permitindo auditar, monitorar e solucionar problemas. Além disso, a nuvem permite a criação de um **evento automatizado** para responder a essas métricas e logs. Serviços como o **Azure Automation** e os **Logic Apps** podem executar tarefas rotineiras ou acionar fluxos de trabalho complexos em resposta a alertas de desempenho, eventos de segurança ou em uma programação definida, transformando o ambiente de reativo para proativo e automatizado.
